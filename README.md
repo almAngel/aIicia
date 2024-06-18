@@ -1,6 +1,4 @@
-<section style="display: flex; justify-content: center;">
-    <img src="icon.png" alt="drawing" width="200"/>
-</section>
+<img src="icon.png" alt="drawing" width="200"/>
 
 # AIicia
 
