@@ -12,7 +12,7 @@ It uses a slightly altered version of WhisperX under the hood.
 
 - You need Python < 3.10 which you can get from https://www.python.org/downloads/release/python-390/ and have python set as a system variable in order to use it as a command.
 
-- You need to install PyTorch:
+- You need to install PyTorch https://pytorch.org/get-started/locally/
 
 ### CUDA
 
