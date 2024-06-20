@@ -71,7 +71,7 @@ booger - 00:09:39,080
 
 ## Can I use it to help me edit videos?
 
-Sure. Use it. But first:
+Sure. Use it. But I would appreciate if you could help me:
 
 [![](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://paypal.me/ShiftALM?country.x=ES&locale.x=es_ES)
 
