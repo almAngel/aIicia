@@ -1,0 +1,6 @@
+pandas
+transformers==4.36.2
+nltk
+ctranslate2==4.0
+faster-whisper==0.10.0
+pyannote.audio

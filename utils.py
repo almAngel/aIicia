@@ -9,3 +9,12 @@ def milliseconds_to_srt_time(ms):
 
 
 print(milliseconds_to_srt_time(415101))
+
+
+def seconds_to_srt_time(seconds):
+    hours, remainder = divmod(seconds, 3600)
+    minutes, remainder = divmod(remainder, 60)
+    seconds, milliseconds = divmod(remainder, 1)
+    return "{:02}:{:02}:{:02},{:03}".format(
+        int(hours), int(minutes), int(seconds), int(milliseconds * 1000)
+    )

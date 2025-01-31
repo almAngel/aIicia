@@ -1,0 +1,11 @@
+services:
+    app:
+        container_name: aiicia
+        image: aiicia-env
+        restart: always
+        ports:
+            - 80:8000
+        volumes:
+            - ./content:/home/ubunt/content
+volumes:
+    content:

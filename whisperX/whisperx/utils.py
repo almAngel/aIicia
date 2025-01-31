@@ -146,14 +146,6 @@ def exact_div(x, y):
     assert x % y == 0
     return x // y
 
-def seconds_to_srt_time(seconds):
-    hours, remainder = divmod(seconds, 3600)
-    minutes, remainder = divmod(remainder, 60)
-    seconds, milliseconds = divmod(remainder, 1)
-    return "{:02}:{:02}:{:02},{:03}".format(
-        int(hours), int(minutes), int(seconds), int(milliseconds * 1000)
-    )
-
 
 def str2bool(string):
     str2val = {"True": True, "False": False}
@@ -443,3 +435,11 @@ def interpolate_nans(x, method='nearest'):
         return x.interpolate(method=method).ffill().bfill()
     else:
         return x.ffill().bfill()
+
+def seconds_to_srt_time(seconds):
+    hours, remainder = divmod(seconds, 3600)
+    minutes, remainder = divmod(remainder, 60)
+    seconds, milliseconds = divmod(remainder, 1)
+    return "{:02}:{:02}:{:02},{:03}".format(
+        int(hours), int(minutes), int(seconds), int(milliseconds * 1000)
+    )

@@ -1,5 +1,7 @@
 from whisperX import whisperx
 import time, argparse
+import os
+from datetime import datetime
 
 start_time= time.perf_counter()
 parser= argparse.ArgumentParser()
@@ -7,6 +9,8 @@ parser.add_argument("-f")
 parser.add_argument("--filename")
 parser.add_argument("--words_list")
 parser.add_argument("-p")
+
+# parser.add_argument("--save_path")
 args= parser.parse_args()
 
 def seconds_to_srt_time(seconds):
@@ -21,10 +25,11 @@ if args.f or args.filename:
 
     if args.words_list: 
         _spot = []
-        with open(args.words_list, 'r', encoding='utf-8') as f:
-            _spot = f.read().splitlines()
-            f.close()
+        with open(f"{args.words_list}", 'r', encoding='utf-8') as wordsfile:
+            _spot = wordsfile.read().splitlines()
+            wordsfile.close()
 
+        print(args.filename)
         print(f'To spot: {_spot}')
 
         device = "cpu"
@@ -34,9 +39,9 @@ if args.f or args.filename:
             if args.p == "cpu":
                 device = "cpu"
 
-        audio_file = args.f or args.filename
-        model_size = 'large-v2'
-        batch_size = 3 # reduce if low on GPU mem
+        audio_file = (args.f or args.filename)
+        model_size = 'medium'
+        batch_size = 1 # reduce if low on GPU mem
         compute_type = "int8" # change to "int8" if low on GPU mem (may reduce accuracy)
 
         print(f'AUDIO_FILE=\'{audio_file}\' PROCESSOR={device} MODEL_SIZE={model_size} BATCH_SIZE={batch_size} COMPUTE_TYPE={compute_type}')
@@ -55,16 +60,18 @@ if args.f or args.filename:
         model_a, metadata = whisperx.load_align_model(language_code=result["language"], device=device)
         result = whisperx.align(result["segments"], model_a, metadata, audio, device, return_char_alignments=False, print_progress=True, spot=_spot)
 
-        print(result) # after alignment
         # print(result) # after alignment
 
-        with open(f'{audio_file.split(".")[0]}.txt', 'w', encoding='utf-8') as f:
+        if not os.path.exists("/data/results"):
+            os.makedirs("/data/results")
+
+        with open(f'/data/results/{os.path.basename(audio_file).split(".")[0]}-{datetime.now()}.txt', 'w', encoding='utf-8') as finalfile:
             for word in result['word_segments']:
                 for s in _spot:
                     if s in word['word'].lower():
-                        f.write(f'{word["word"]} - {seconds_to_srt_time(word["start"])}\n')
+                        finalfile.write(f'{word["word"]} - {seconds_to_srt_time(word["start"])}\n')
 
-            f.close()
+            finalfile.close()
 
         end_time = time.perf_counter()
 
@@ -72,7 +79,7 @@ if args.f or args.filename:
 
         print(f"Elapsed time: {seconds_to_srt_time(diff)}")
     else:
-        print("\n>> ERROR: Please, provide a banned words list using --banned_list. Eg: python .\\transcript.py -f audio.mp3 --banned_list .banned")
+        print("\n>> ERROR: Please, provide a banned words list using --words_list. Eg: python .\\transcript.py -f audio.mp3 --banned_list .banned")
 
 else: 
     print("\n>> ERROR: Please, pass a file name using -f or --filename. Eg: python .\\transcript.py -f audio.mp3")
