@@ -1,10 +1,10 @@
 <img src="icon.png" alt="drawing" width="200"/>
 
-# AIicia
+# ISpot
 
-## What is AIicia?
+## What is ISpot?
 
-AIicia is an open source tool for content creators to spot certain words inside audio files or videos. This makes possible to check for certain words that you want to censor in order to protect your content monetization, or just simply because you want to make sure if you did say certain word or phrase.
+ISpot is an open source tool for content creators to spot certain words inside audio files or videos. This makes possible to check for certain words that you want to censor in order to protect your content monetization, or just simply because you want to make sure if you did say certain word or phrase.
 
 It uses a slightly altered version of WhisperX under the hood.
 
